@@ -14,7 +14,7 @@ const ChangePassword = ({close}: Props) => {
 
     const handleClickSave = () => {
         if (newPassword === confirmPassword) {
-            dispatch(changePassword(newPassword))
+            dispatch(changePassword({newPassword, oldPassword}))
             close();
         } else {
             alert("Password doesn't match");
