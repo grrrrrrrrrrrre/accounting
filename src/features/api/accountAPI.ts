@@ -6,6 +6,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 export const accountApi = createApi({
     reducerPath: 'account',
     baseQuery: fetchBaseQuery({baseUrl:  base_url}),
+    tagTypes: ['user'],
     endpoints: builder => ({
         registerUser: builder.mutation<UserProfile, UserRegister>({
             query: (user) => ({
@@ -23,7 +24,8 @@ export const accountApi = createApi({
                 method: 'POST',
                 headers: {
                     Authorization: token
-                }
+                },
+                providesTags:['user']
             })
         }),
         updateUser: builder.mutation<UserProfile, { user:UserUpdate, login:string, token:string }>({
@@ -33,7 +35,8 @@ export const accountApi = createApi({
                 body: user,
                 headers: {
                     Authorization: token
-                }
+                },
+                invalidatesTags: ['user']
             })
         }),
         changePassword: builder.mutation<void, {newPassword: string, token: string}>({
